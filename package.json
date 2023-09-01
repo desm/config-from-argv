@@ -26,9 +26,6 @@
     "dependency-graph": "depcruise src -x test.ts --output-type dot | dot -T svg > dependency-graph.svg",
     "check-everything": "npm run lint && npm run build && npm run dependency-graph && npm run test-coverage && ./dist/cli/example.js && ./dist/cli/example.cjs"
   },
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "cli",
     "argv",
