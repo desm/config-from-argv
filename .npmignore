@@ -9,3 +9,7 @@ tsconfig.json
 **/*.ts.map
 **/*.js.map
 **/*.test.*
+
+dist/cli/example.d.ts
+spec/support/jasmine.json
+wallaby.conf.js

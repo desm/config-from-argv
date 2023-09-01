@@ -14,10 +14,3 @@ export const newConfigFromArgv = <T extends object>(
   validateConfig(config, configOptions);
   return parseCommandLine(config, configOptions, argv);
 };
-
-export const printDebugInfo = <T>(newConfig: T, operands: string[]) => {
-  console.log(JSON.stringify(newConfig, null, 4));
-  if (operands.length > 0) {
-    console.log(`operands: "${operands.join('", "')}"`);
-  }
-};

@@ -15,7 +15,7 @@ const configToCLIOpt = {
 const main = async () => {
   const process = await import("node:process");
   const console = await import("node:console");
-  const { newConfigFromArgv, printDebugInfo } = await import("../lib/main.js");
+  const { newConfigFromArgv } = await import("../lib/main.js");
 
   const argv = process.argv.slice(2);
   let configAndOperands;
@@ -26,7 +26,10 @@ const main = async () => {
     process.exit(1);
   }
   const { newConfig, operands } = configAndOperands;
-  printDebugInfo(newConfig, operands);
+  console.log(JSON.stringify(newConfig, null, 4));
+  if (operands.length > 0) {
+    console.log(`operands: "${operands.join('", "')}"`);
+  }
   process.exit(0);
 };
 

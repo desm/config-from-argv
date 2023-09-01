@@ -56,7 +56,9 @@ describe("newConfigFromArgv", () => {
       const config = { print: false };
       const configCli = { incorrect: "-p" };
       expect(() => newConfigFromArgv(config, configCli as object, [])).toThrow(
-        'the option spec { incorrect: "-p" } is not valid: property "incorrect" is not a property of the config object',
+        new Error(
+          'the option spec { incorrect: "-p" } is not valid: property "incorrect" is not a property of the config object'
+        )
       );
     });
 
@@ -64,7 +66,9 @@ describe("newConfigFromArgv", () => {
       const config = { print: false };
       const configCli = { print: "incorrect" };
       expect(() => newConfigFromArgv(config, configCli, [])).toThrow(
-        'the option spec { print: "incorrect" } is not valid: "incorrect" does not match the pattern "-[letter]" or "-[letter](_string|_number)"',
+        new Error(
+          'the option spec { print: "incorrect" } is not valid: "incorrect" does not match the pattern "-[letter]" or "-[letter](_string|_number)"'
+        )
       );
     });
 
@@ -72,7 +76,9 @@ describe("newConfigFromArgv", () => {
       const config = { print: false };
       const configCli = { print: undefined };
       expect(() => newConfigFromArgv(config, configCli, [])).toThrow(
-        'the option spec { print: undefined } is not valid: a valid option spec needs to be a string matching the pattern "-[letter]" or "-[letter](_string|_number)"',
+        new Error(
+          'the option spec { print: undefined } is not valid: a valid option spec needs to be a string matching the pattern "-[letter]" or "-[letter](_string|_number)"'
+        )
       );
     });
   });
@@ -82,7 +88,7 @@ describe("newConfigFromArgv", () => {
       const config = {};
       const configCli = {}; // no "-z" option specified
       expect(() => newConfigFromArgv(config, configCli, ["-z"])).toThrow(
-        "option -z is not a valid option",
+        new Error("option -z is not a valid option")
       );
     });
 
@@ -90,7 +96,7 @@ describe("newConfigFromArgv", () => {
       const config = { file: "" };
       const configCli = { file: "-f_string" };
       expect(() => newConfigFromArgv(config, configCli, ["-f" /* missing arg */])).toThrow(
-        "option -f requires an argument but none was provided",
+        new Error("option -f requires an argument but none was provided")
       );
     });
 
@@ -98,7 +104,7 @@ describe("newConfigFromArgv", () => {
       const config = { padding: 0 };
       const configCli = { padding: "-p_number" };
       expect(() => newConfigFromArgv(config, configCli, ["-p", "foo" /* not a number */])).toThrow(
-        'option -p requires a numerical argument but was "foo"',
+        new Error('option -p requires a numerical argument but was "foo"')
       );
     });
   });

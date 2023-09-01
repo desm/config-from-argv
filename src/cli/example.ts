@@ -2,8 +2,7 @@
 
 import process from "node:process";
 import console from "node:console";
-import { newConfigFromArgv, printDebugInfo } from "../lib/main.js";
-import { ConfigToCLIOpt } from "../lib/types.js";
+import { newConfigFromArgv, ConfigToCLIOpt } from "../lib/main.js";
 
 const baseConfig = {
   printExtraLines: false,
@@ -27,7 +26,10 @@ const main = () => {
     process.exit(1);
   }
   const { newConfig, operands } = configAndOperands;
-  printDebugInfo(newConfig, operands);
+  console.log(JSON.stringify(newConfig, null, 4));
+  if (operands.length > 0) {
+    console.log(`operands: "${operands.join('", "')}"`);
+  }
   process.exit(0);
 };
 
