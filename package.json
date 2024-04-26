@@ -1,6 +1,6 @@
 {
   "name": "config-from-argv",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Command line arg parser",
   "license": "MIT",
   "repository": "https://github.com/desm/config-from-argv",
