@@ -13,3 +13,5 @@ tsconfig.json
 dist/cli/example.d.ts
 spec/support/jasmine.json
 wallaby.conf.js
+
+examples/
