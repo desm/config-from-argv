@@ -1,8 +1,22 @@
 #!/usr/bin/env node
 
+/**
+ * Steps:
+ * - cd to this directory
+ * - run "npm install"
+ * - run "npm build"
+ *
+ * Example usage:
+ * - ./dist/example.js
+ * - ./dist/example.js -x
+ * - ./dist/example.js -f other.txt
+ * - ./dist/example.js -p 30
+ * - ./dist/example.js -x -f one.txt -p 2
+ */
+
 import process from "node:process";
 import console from "node:console";
-import { newConfigFromArgv, ConfigToCLIOpt } from "../lib/main.js";
+import { newConfigFromArgv, ConfigToCLIOpt } from "config-from-argv";
 
 const baseConfig = {
   printExtraLines: false,

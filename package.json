@@ -9,9 +9,9 @@
     "email": "jdesma@gmail.com"
   },
   "type": "module",
-  "main": "./dist/lib/main.js",
-  "exports": "./dist/lib/main.js",
-  "types": "./dist/lib/main.d.ts",
+  "main": "./dist/main.js",
+  "exports": "./dist/main.js",
+  "types": "./dist/main.d.ts",
   "engines": {
     "node": ">=16"
   },
@@ -20,13 +20,12 @@
     "lint": "eslint . --ext .ts",
     "build": "rm -fr ./dist && tsc",
     "build-watch": "rm -fr ./dist && tsc --watch",
-    "postbuild": "cp ./src/cli/example.cjs ./dist/cli && chmod +x ./dist/cli/example.js ./dist/cli/example.cjs && ln -fs ./dist/cli/example.js ./example",
     "test": "jasmine && NODE_OPTIONS=--experimental-vm-modules jest --config=./jest.config.mjs",
     "test-watch": "NODE_OPTIONS=--experimental-vm-modules jest --config=./jest.config.mjs --watchAll",
     "test-coverage": "jasmine && NODE_OPTIONS=--experimental-vm-modules jest --config=./jest.config.mjs --coverage=true",
     "prepare": "npm run build",
     "dependency-graph": "depcruise src -x test.ts --output-type dot | dot -T svg > dependency-graph.svg",
-    "check-everything": "npm run clean && npm run lint && npm run build && npm run dependency-graph && npm run test-coverage && ./dist/cli/example.js && ./dist/cli/example.cjs"
+    "check-everything": "npm run clean && npm run lint && npm run build && npm run dependency-graph && npm run test-coverage"
   },
   "keywords": [
     "cli",
