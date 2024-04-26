@@ -1,4 +1,4 @@
-name: CI
+name: config-from-argv
 on:
   - push
   - pull_request

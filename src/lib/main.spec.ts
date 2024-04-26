@@ -2,10 +2,9 @@ import { newConfigFromArgv } from "./main.js";
 
 describe("newConfigFromArgv", () => {
   describe("overall behaviour", () => {
-    it("returns a copy of the config", () => {
+    it("always returns a copy of the config", () => {
       const config = {};
-      const configCli = {};
-      const { newConfig } = newConfigFromArgv(config, configCli, []);
+      const { newConfig } = newConfigFromArgv(config, {}, []);
       expect(newConfig).toEqual(config);
       expect(newConfig).not.toBe(config);
     });

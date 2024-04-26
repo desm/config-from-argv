@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "scripts": {
+    "build": "rm -fr ./dist/ && tsc && chmod +x ./dist/example.js",
+    "prepare": "npm run build"
+  },
+  "dependencies": {
+    "config-from-argv": "file:../../"
+  }
+}

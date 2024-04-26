@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import process from "node:process";
-import console from "node:console";
-import { newConfigFromArgv, ConfigToCLIOpt } from "../lib/main.js";
+/**
+ * see README.md for instructions on how to run
+ */
 
 const baseConfig = {
   printExtraLines: false,
@@ -10,19 +10,23 @@ const baseConfig = {
   leftPaddingAmount: 10,
 };
 
-const configToCLIOpt: ConfigToCLIOpt<typeof baseConfig> = {
+const configToCLIOpt = {
   printExtraLines: "-x",
   inputFile: "-f_string",
   leftPaddingAmount: "-p_number",
 };
 
-const main = () => {
+const main = async () => {
+  const process = await import("node:process");
+  const console = await import("node:console");
+  const { newConfigFromArgv } = await import("config-from-argv");
+
   const argv = process.argv.slice(2);
-  let configAndOperands: ReturnType<typeof newConfigFromArgv>;
+  let configAndOperands;
   try {
     configAndOperands = newConfigFromArgv(baseConfig, configToCLIOpt, argv);
   } catch (error) {
-    console.error((error as Error).message);
+    console.error(error.message);
     process.exit(1);
   }
   const { newConfig, operands } = configAndOperands;
