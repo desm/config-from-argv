@@ -52,5 +52,8 @@ Note: install project's node modules before trying out the examples:
 $ npm install # in project root
 ```
 
-- Javascript: [examples/js/example.js](examples/js/example.js)
-- TypeScript: [examples/ts/example.ts](examples/ts/example.ts)
+- Javascript:
+  - [examples/js/example.js](examples/js/example.js)
+- TypeScript:
+  - [examples/ts/example.ts](examples/ts/example.ts)
+  - https://github.com/desm/config-from-argv-ts-example
