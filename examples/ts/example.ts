@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/**
+ * see README.md for instructions on how to run
+ */
+
 import process from "node:process";
 import console from "node:console";
 import { newConfigFromArgv, ConfigToCLIOpt } from "config-from-argv";

@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 
+/**
+ * see README.md for instructions on how to run
+ */
+
 const baseConfig = {
   printExtraLines: false,
   inputFile: "input.txt",
