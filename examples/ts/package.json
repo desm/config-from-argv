@@ -1,8 +1,8 @@
 {
   "type": "module",
   "scripts": {
-    "prebuild": "cd ../../ && npm i && npm run build",
-    "build": "rm -fr ./dist/ && tsc && chmod +x ./dist/example.js"
+    "build": "rm -fr ./dist/ && tsc && chmod +x ./dist/example.js",
+    "prepare": "npm run build"
   },
   "dependencies": {
     "config-from-argv": "file:../../"

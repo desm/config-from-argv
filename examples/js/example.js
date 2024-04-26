@@ -1,18 +1,5 @@
 #!/usr/bin/env node
 
-/**
- * Steps:
- * - cd to this directory
- * - run "npm install"
- *
- * Example usage:
- * - ./example.js
- * - ./example.js -x
- * - ./example.js -f other.txt
- * - ./example.js -p 30
- * - ./example.js -x -f one.txt -p 2
- */
-
 const baseConfig = {
   printExtraLines: false,
   inputFile: "input.txt",
