@@ -44,6 +44,10 @@ import { newConfigFromArgv } from "config-from-argv";
 const config = newConfigFromArgv(baseConfig, configToCLIOpt, process.argv.slice(2));
 ```
 
+## Behavior
+
+The behavior of this library is described in [src/lib/main.spec.ts](src/lib/main.spec.ts)
+
 ## Examples
 
 Note: install project's node modules before trying out the examples:
@@ -57,3 +61,10 @@ $ npm install # in project root
 - TypeScript:
   - [examples/ts/example.ts](examples/ts/example.ts)
   - https://github.com/desm/config-from-argv-ts-example
+
+
+## Dependency Graph
+
+Graph showing how this library is structured:
+
+![Dependency Graph](dependency-graph.svg)
