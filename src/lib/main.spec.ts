@@ -1,4 +1,7 @@
 import { newConfigFromArgv } from "./main.js";
+import { ArgumentMissingError } from "./parser/errors/ArgumentMissingError.js";
+import { ArgumentNotANumberError } from "./parser/errors/ArgumentNotANumberError.js";
+import { UnknownOptionError } from "./parser/errors/UnknownOptionError.js";
 import { InvalidConfigPropError } from "./validation/errors/InvalidConfigPropError.js";
 import { InvalidOptionSpecError } from "./validation/errors/InvalidOptionSpecError.js";
 
@@ -25,7 +28,7 @@ describe("newConfigFromArgv", () => {
     expect(newConfig).toEqual({ file: "input.txt" });
   });
 
-  it("returns numberical values for -X_number (flags requiring 1 argument)", () => {
+  it("returns numerical values for -X_number (flags requiring 1 argument)", () => {
     const baseConfig = { padding: 0, degree: 0 };
     const argvConfig = { padding: "-p_number", degree: "-d_number" };
     const argv = ["-p", "30", "-d", "10.5"];
@@ -57,7 +60,7 @@ describe("newConfigFromArgv", () => {
       const argvConfig = { incorrect: "-p" };
       try {
         newConfigFromArgv(baseConfig, argvConfig as object, []);
-        throw new Error(); // in case newConfigFromArgv doesn't throw
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
       } catch (error) {
         expect(error).toBeInstanceOf(InvalidConfigPropError);
         expect((error as Error).message).toEqual(
@@ -71,7 +74,7 @@ describe("newConfigFromArgv", () => {
       const argvConfig = { print: "incorrect" };
       try {
         newConfigFromArgv(baseConfig, argvConfig, []);
-        throw new Error(); // in case newConfigFromArgv doesn't throw
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
       } catch (error) {
         expect(error).toBeInstanceOf(InvalidOptionSpecError);
         expect((error as Error).message).toEqual(
@@ -85,7 +88,7 @@ describe("newConfigFromArgv", () => {
       const argvConfig = { print: undefined };
       try {
         newConfigFromArgv(baseConfig, argvConfig, []);
-        throw new Error(); // in case newConfigFromArgv doesn't throw
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
       } catch (error) {
         expect(error).toBeInstanceOf(InvalidOptionSpecError);
         expect((error as Error).message).toEqual(
@@ -100,27 +103,43 @@ describe("newConfigFromArgv", () => {
       const baseConfig = {};
       const argvConfig = {};
       const argv = ["-z"];
-      expect(() => newConfigFromArgv(baseConfig, argvConfig, argv)).toThrow(
-        new Error("option -z is not a valid option")
-      );
+      try {
+        newConfigFromArgv(baseConfig, argvConfig, argv);
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
+      } catch (error) {
+        expect(error).toBeInstanceOf(UnknownOptionError);
+        expect((error as Error).message).toEqual("option -z is not a valid option");
+      }
     });
 
     it("throws an error when an option argument is missing", () => {
       const baseConfig = { file: "" };
       const argvConfig = { file: "-f_string" };
       const argv = ["-f"];
-      expect(() => newConfigFromArgv(baseConfig, argvConfig, argv)).toThrow(
-        new Error("option -f requires an argument but none was provided")
-      );
+      try {
+        newConfigFromArgv(baseConfig, argvConfig, argv);
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
+      } catch (error) {
+        expect(error).toBeInstanceOf(ArgumentMissingError);
+        expect((error as Error).message).toEqual(
+          "option -f requires an argument but none was provided"
+        );
+      }
     });
 
     it("throws an error when an option argument that is expected to be a number is not a number", () => {
       const baseConfig = { padding: 0 };
       const argvConfig = { padding: "-p_number" };
       const argv = ["-p", "foo"];
-      expect(() => newConfigFromArgv(baseConfig, argvConfig, argv)).toThrow(
-        new Error('option -p requires a numerical argument but was "foo"')
-      );
+      try {
+        newConfigFromArgv(baseConfig, argvConfig, argv);
+        throw new Error(); // in case newConfigFromArgv doesn't throw like it should
+      } catch (error) {
+        expect(error).toBeInstanceOf(ArgumentNotANumberError);
+        expect((error as Error).message).toEqual(
+          'option -p requires a numerical argument but was "foo"'
+        );
+      }
     });
   });
 });
