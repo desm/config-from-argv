@@ -7,9 +7,9 @@ export class InvalidOptionSpecError extends Error {
   ) {
     let msg: string;
     if (invalidOptionSpec === undefined) {
-      msg = `the option spec { ${configProp}: ${invalidOptionSpec} } is not valid: a valid option spec needs to be a string matching the pattern "-[letter]" or "-[letter](_string|_number)"`;
+      msg = `{ ${configProp}: ${invalidOptionSpec} } is not valid: value must be a string that matches the pattern /^-[a-zA-Z0-9](_string|_number)?$/`;
     } else {
-      msg = `the option spec { ${configProp}: "${invalidOptionSpec}" } is not valid: "${invalidOptionSpec}" does not match the pattern "-[letter]" or "-[letter](_string|_number)"`;
+      msg = `{ ${configProp}: "${invalidOptionSpec}" } is not valid: "${invalidOptionSpec}" does not match the pattern /^-[a-zA-Z0-9](_string|_number)?$/`;
     }
     super(msg);
   }

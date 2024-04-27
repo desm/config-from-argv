@@ -6,7 +6,7 @@ export class InvalidConfigPropError extends Error {
     readonly invalidOptionSpec: OptionSpecString,
   ) {
     super(
-      `the option spec { ${configProp}: "${invalidOptionSpec}" } is not valid: property "${configProp}" is not a property of the config object`,
+      `{ ${configProp}: "${invalidOptionSpec}" } is not valid: property "${configProp}" is not a property of the config object`,
     );
   }
 }
