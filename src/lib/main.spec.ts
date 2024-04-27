@@ -1,4 +1,6 @@
 import { newConfigFromArgv } from "./main.js";
+import { InvalidConfigPropError } from "./validation/errors/InvalidConfigPropError.js";
+import { InvalidOptionSpecError } from "./validation/errors/InvalidOptionSpecError.js";
 
 describe("newConfigFromArgv", () => {
   it("returns a copy of the config", () => {
@@ -53,31 +55,43 @@ describe("newConfigFromArgv", () => {
     it("throws an error if a property of argvConfig does not exist in the config", () => {
       const baseConfig = { print: false };
       const argvConfig = { incorrect: "-p" };
-      expect(() => newConfigFromArgv(baseConfig, argvConfig as object, [])).toThrow(
-        new Error(
+      try {
+        newConfigFromArgv(baseConfig, argvConfig as object, []);
+        throw new Error(); // in case newConfigFromArgv doesn't throw
+      } catch (error) {
+        expect(error).toBeInstanceOf(InvalidConfigPropError);
+        expect((error as Error).message).toEqual(
           '{ incorrect: "-p" } is not valid: property "incorrect" is not a property of the config object'
-        )
-      );
+        );
+      }
     });
 
     it("throws an error if one of values in argvConfig is not valid", () => {
       const baseConfig = { print: false };
       const argvConfig = { print: "incorrect" };
-      expect(() => newConfigFromArgv(baseConfig, argvConfig, [])).toThrow(
-        new Error(
+      try {
+        newConfigFromArgv(baseConfig, argvConfig, []);
+        throw new Error(); // in case newConfigFromArgv doesn't throw
+      } catch (error) {
+        expect(error).toBeInstanceOf(InvalidOptionSpecError);
+        expect((error as Error).message).toEqual(
           '{ print: "incorrect" } is not valid: "incorrect" does not match the pattern /^-[a-zA-Z0-9](_string|_number)?$/'
-        )
-      );
+        );
+      }
     });
 
     it("throws an error if one of values in argvConfig is undefined", () => {
       const baseConfig = { print: false };
       const argvConfig = { print: undefined };
-      expect(() => newConfigFromArgv(baseConfig, argvConfig, [])).toThrow(
-        new Error(
+      try {
+        newConfigFromArgv(baseConfig, argvConfig, []);
+        throw new Error(); // in case newConfigFromArgv doesn't throw
+      } catch (error) {
+        expect(error).toBeInstanceOf(InvalidOptionSpecError);
+        expect((error as Error).message).toEqual(
           "{ print: undefined } is not valid: value must be a string that matches the pattern /^-[a-zA-Z0-9](_string|_number)?$/"
-        )
-      );
+        );
+      }
     });
   });
 
